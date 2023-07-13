@@ -170,7 +170,7 @@ def create_professor():
         conn.commit()
         cur.close()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_professor'))
 
     return render_template('create_professores.html', departamentos=departamentos)
 
@@ -290,7 +290,7 @@ def create_turma():
         conn.commit()
         cur.close()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_turma'))
 
     return render_template('create_turma.html', professores=professores, disciplinas=disciplinas)
 
