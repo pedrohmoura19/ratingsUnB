@@ -50,8 +50,8 @@ def login():
             return redirect(url_for('login'))
         else:
             session['name'] = request.form.get("email")
-            session['id'] = 1
-            return render_template('index.html')
+            session['id'] = user[0][0]
+            return render_template('index_turmas.html')
     return render_template('login.html')
 
 
@@ -99,24 +99,52 @@ def index_usuarios():
     return render_template('index_usuarios.html', usuarios=usuarios)
 
 
-@app.route('/departamentos/create', methods=('GET', 'POST'))
-def create_departamento():
+@app.route('/usuarios/<usuario_id>/edit', methods=('GET', 'POST'))
+def edit_usuario(usuario_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Usuarios\
+                WHERE usuario_id = %s',
+                (usuario_id, )
+                )
+    usuario = cur.fetchone()
+    cur.close()
+    conn.close()
+
     if request.method == 'POST':
         nome = request.form['nome']
+        matricula = request.form['matricula']
+        email = request.form['email']
+        senha = request.form['senha']
+        curso = request.form['curso']
+        role = request.form['role']
 
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute('INSERT INTO Departamentos (nome)'
-                    'VALUES (%s)',
-                    (nome)
+        cur.execute('UPDATE Usuarios SET nome=%s, email=%s ,matricula=%s, senha=%s ,curso=%s, role=%s '
+                    'WHERE usuario_id = %s',
+                    (nome, email, matricula, senha, curso, role, usuario_id)
                     )
 
         conn.commit()
         cur.close()
         conn.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_usuarios'))
 
-    return render_template('create_departamento.html')
+    return render_template('edit_usuario.html', usuario=usuario)
+
+
+@app.route('/usuarios/<usuario_id>/delete')
+def delete_usuario(usuario_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('DELETE FROM Usuarios WHERE usuario_id=%s', (usuario_id, ))
+    conn.commit()
+    cur.close()
+    conn.close()
+    session["name"] = None
+    session["id"] = None
+    return redirect("/")
 
 
 @app.route('/professores/create', methods=('GET', 'POST'))
@@ -336,3 +364,38 @@ def delete_turma(turma_id):
 
 if __name__ == "__main__":
     app.run()
+
+
+@app.route('/avaliar_professor/<professor_id>', methods=('GET', 'POST'))
+def create_avaliacao_professor(professor_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Professores WHERE professor_id=%s', (professor_id, ))
+    professor = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if request.method == 'POST':
+        nota = request.form['nota']
+        descricao = request.form['descricao']
+        usuario = request.form['usuario']
+        professor = request.form['professor']
+
+        print("nota", nota)
+        print("usuario", usuario)
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO Avaliacoes (nota, descricao, professor_id, usuario_id)'
+                    'VALUES (%s, %s, %s, %s)',
+                    (nota, descricao, professor, usuario)
+                    )
+
+
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('index_professor'))
+
+    return render_template('create_avaliacao.html', professor=professor)

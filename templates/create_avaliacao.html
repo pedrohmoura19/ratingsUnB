@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Avaliar {{ professor[1] }} {% endblock %}</h1>
+    <form method="post">
+
+        <p>
+            <label for="nota">Nota</label>
+            <select name="nota">
+                {% for n in range(11) %}
+                    <option value="{{n}}">{{n}}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label for="descricao">Descrição</label>
+            <textarea name="descricao"
+                   placeholder="Avalie o professor">
+            </textarea>
+        </p>
+
+        <input value="{{session.id}}" name="usuario"
+                   type="hidden">
+        </input>
+
+        <input value="{{professor[0]}}" name="professor"
+                   type="hidden">
+        </input>
+
+
+        <p>
+            <button type="submit">Avaliar</button>
+        </p>
+    </form>
+{% endblock %}
