@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Editar Professor {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="nome">Nome do Professor</label>
+            <input type="text" name="nome"
+                   value="{{ professor[1] }}">
+            </input>
+        </p>
+
+        <p>
+            <label for="departamento">Departamento</label>
+            <select name="departamento">
+                {% for departamento in departamentos %}
+                    <option value="{{ departamento[0] }}">{{ departamento[1] }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <button type="submit">Editar</button>
+        </p>
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Usuários {% endblock %}</h1>
+    {% for usuario in usuarios %}
+        <div class='card my-3'>
+            <h4 class="card-header">{{ usuario[1] }}</h4>
+            <div class="card-body">
+                <h6 class="card-title">Matrícula: {{ usuario[2] }}</h6>
+                <h6 class="card-title">E-mail: {{ usuario[3] }}</h6>
+                <h6 class="card-title">Curso: {{ usuario[5] }}</h6>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

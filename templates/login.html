@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card bg-light justify-content-center align-items-center" style="width: 50rem; height:20rem ;margin-top:5rem; ">
+    <h3>Login</h3>
+    <form action="" method="post">
+        <div class="form-group">
+            <input type="text" name="email"
+               placeholder="E-mail" class="form-control"
+               value="{{ request.form['email'] }}">
+            </input>
+           <input type="password" name="senha"
+           placeholder="Senha" class="form-control mt-3"
+           value="{{ request.form['senha'] }}">
+           </input>
+               <button type="submit" class="btn btn-primary mt-3">Logar</button>
+        </div>
+    </form>
+    <div>
+        <a href="{{ url_for('create_usuario')}}">Não possui conta? Registre-se aqui</a>
+    </div>
+</div>
+{% endblock %}

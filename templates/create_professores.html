@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Cadastrar novo Professor {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="nome">Nome do Professor</label>
+            <input type="text" name="nome"
+                   placeholder="Ex: João">
+            </input>
+        </p>
+
+        <p>
+            <label for="departamento">Departamento</label>
+            <select name="departamento">
+                {% for departamento in departamentos %}
+                    <option value="{{ departamento[0] }}">{{ departamento[1] }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <button type="submit">Registrar</button>
+        </p>
+    </form>
+{% endblock %}

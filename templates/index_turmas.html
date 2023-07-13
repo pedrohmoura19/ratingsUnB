@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Turmas {% endblock %}</h1>
+    <a href="{{ url_for('create_turma') }}">
+        <input type="submit" value="Adicionar nova Turma" class="btn btn-primary btn-sm">
+    </a>
+    {% for turma in turmas %}
+        <div class='card my-3'>
+            <a href="{{ url_for('edit_turma', turma_id=turma[0]) }}"><h4 class="card-header">{{ turma[9] }} - {{ turma[3]}}</h4></a>
+            <div class="card-body">
+                <h6 class="card-title">Professor: {{ turma[6] }}</h6>
+                <h6 class="card-title">Período: {{ turma[4] }}</h6>
+                <form action="{{ url_for('delete_turma', turma_id=turma[0]) }}">
+                    <input type="submit" value="Deletar Turma" class="btn btn-danger btn-sm"
+                    onclick="return confirm('Quer mesmo deletar a turma?')">
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

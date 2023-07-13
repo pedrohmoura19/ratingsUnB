@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Professores {% endblock %}</h1>
+    <a href="{{ url_for('create_professor') }}">
+        <input type="submit" value="Adicionar novo Professor" class="btn btn-primary btn-sm">
+    </a>
+    {% for professor in professores %}
+        <div class='card my-3'>
+            <h4 class="card-header">{{ professor[1] }}</h4>
+            <div class="card-body">
+                <h6 class="card-title">Departamento: {{ professor[4] }}</h6>
+                <div class="row pt-3">
+                    <div class="col-2">
+                        <a href="{{ url_for('edit_professor', professor_id=professor[0]) }}">
+                            <input type="submit" value="Editar Professor" class="btn btn-primary btn-sm">
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <form action="{{ url_for('delete_professor', professor_id=professor[0]) }}">
+                            <input type="submit" value="Deletar Professor" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Quer mesmo deletar o professor?')">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

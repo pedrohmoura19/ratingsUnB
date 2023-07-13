@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Cadastrar nova Turma {% endblock %}</h1>
+
+    <form method="post">
+        <p>
+            <label for="nome">Nome da Turma</label>
+            <input type="text" name="nome"
+                   placeholder="Ex: Turma A">
+            </input>
+        </p>
+
+        <p>
+            <label for="periodo">Período de vigência</label>
+            <input type="text" name="periodo"
+                   placeholder="Ex: 2023.1">
+            </input>
+        </p>
+
+        <p>
+            <label for="professor">Professor</label>
+            <select name="professor">
+                {% for professor in professores %}
+                    <option value="{{ professor[0] }}">{{ professor[1] }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label for="disciplina">Disciplina</label>
+            <select name="disciplina">
+                {% for disciplina in disciplinas %}
+                    <option value="{{ disciplina[0] }}">{{ disciplina[1] }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <button type="submit">Registrar</button>
+        </p>
+    </form>
+{% endblock %}

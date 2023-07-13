@@ -1,0 +1,15 @@
+{% block content %}
+    <h1>{% block title %} Criar novo Departamento {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="nome">Nome do Departamento</label>
+            <input type="text" name="nome"
+                   placeholder="Ex: Departamento de Direito">
+            </input>
+        </p>
+
+        <p>
+            <button type="submit">Registrar</button>
+        </p>
+    </form>
+{% endblock %}

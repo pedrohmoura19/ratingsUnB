@@ -1,0 +1,49 @@
+{% block content %}
+    <h1>{% block title %} Registre-se {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="nome">Nome do usuário</label>
+            <input type="text" name="nome"
+                   placeholder="Ex: João">
+            </input>
+        </p>
+
+        <p>
+            <label for="matricula">Matricula</label>
+            <input type="text" name="matricula"
+                   placeholder="Formato: XX/XXXXXXX">
+            </input>
+        </p>
+
+        <p>
+            <label for="email">E-Mail</label>
+            <input type="email" name="email"
+                   placeholder="Ex: joão@email.com">
+            </input>
+        </p>
+
+        <p>
+            <label for="senha">Senha</label>
+            <input type="password" name="senha"
+                   placeholder="Senha">
+            </input>
+        </p>
+
+        <p>
+            <label for="curso">Curso</label>
+            <input type="text" name="curso"
+                   placeholder="Ex: Administração">
+            </input>
+        </p>
+
+
+
+        <input type="hidden" name="role"
+                   value="estudante">
+        </input>
+
+        <p>
+            <button type="submit">Registrar</button>
+        </p>
+    </form>
+{% endblock %}
